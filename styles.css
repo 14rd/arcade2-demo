@@ -669,8 +669,12 @@ html.motion-off .console-dot{animation:none;}
 
 /* ---------------- footer ---------------- */
 .foot{border-top:1px solid var(--hair);padding:34px 0 44px;position:relative;z-index:2;background:var(--bg);}
-.foot-inner{display:flex;align-items:center;gap:20px;}
-.foot-right{margin-left:auto;display:flex;gap:22px;}
+.foot-inner{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.foot-right{margin-left:auto;display:flex;gap:22px;flex-wrap:wrap;}
+@media (max-width:560px){
+  .foot-inner{flex-direction:column;align-items:flex-start;}
+  .foot-right{margin-left:0;}
+}
 .foot-note{margin-top:14px;}
 
 /* ---------------- toast ---------------- */
@@ -743,6 +747,9 @@ html.motion-off .console-dot{animation:none;}
   .console-go{margin-left:0;width:100%;}
   .sec{padding:90px 0;}
   .chips-count{width:100%;margin-left:0;}
+  .t-tabs--line{max-width:100%;overflow-x:auto;scrollbar-width:none;}
+  .t-tabs--line::-webkit-scrollbar{display:none;}
+  .film-steps{display:none;}
 }
 @media (max-width:560px){
   .masonry{columns:1;}
