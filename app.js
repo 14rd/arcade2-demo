@@ -25,7 +25,7 @@
     window.dispatchEvent(new Event("resize"));
     boot();
   }
-  gateForm.addEventListener("submit", function (e) {
+  if (gateForm) gateForm.addEventListener("submit", function (e) {
     e.preventDefault();
     var value = gateInput.value;
     if (!value) return;

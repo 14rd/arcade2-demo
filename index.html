@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="unlocked">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -11,17 +11,9 @@
 <link rel="preload" href="fonts/FragmentMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <style>
-  /* critical gate rules — the lock is the first paint, always */
-  html:not(.unlocked) .site{display:none !important;}
+  /* gate disabled for now — page is open */
   html.unlocked .gate{display:none !important;}
 </style>
-<script>
-  try{
-    if(localStorage.getItem("arcade-gate")==="60d194c6f504e1f2140a8df17fd37d0a3d9c44b1a75917096502ad166d6d6748"){
-      document.documentElement.classList.add("unlocked");
-    }
-  }catch(e){}
-</script>
 </head>
 <body>
 
