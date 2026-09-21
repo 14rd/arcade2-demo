@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f5f5f7">
+<title>ARCADE Studio — Build your universe.</title>
+<link rel="icon" type="image/png" href="assets/logo-black.png">
+<link rel="preload" href="fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/FragmentMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* critical gate rules — the lock is the first paint, always */
+  html:not(.unlocked) .site{display:none !important;}
+  html.unlocked .gate{display:none !important;}
+</style>
+<script>
+  try{
+    if(localStorage.getItem("arcade-gate")==="60d194c6f504e1f2140a8df17fd37d0a3d9c44b1a75917096502ad166d6d6748"){
+      document.documentElement.classList.add("unlocked");
+    }
+  }catch(e){}
+</script>
+</head>
+<body>
+
+<!-- ======================= GATE ======================= -->
+<div class="gate" id="gate">
+  <canvas class="gate-canvas" id="gate-canvas" aria-hidden="true"></canvas>
+  <div class="gate-box glass">
+    <div class="gate-eyebrow mono">Private preview · Studio Subtract</div>
+    <div class="gate-mark">ARCADE<span>STUDIO</span></div>
+    <form class="gate-form" id="gate-form">
+      <input class="gate-input" id="gate-input" type="password" placeholder="Password" autocomplete="off" autofocus aria-label="Password">
+      <button class="btn btn--primary" type="submit">Enter</button>
+    </form>
+    <p class="gate-err mono" id="gate-err" hidden>That's not it. Try again.</p>
+  </div>
+</div>
+
+<div class="site" id="arcade-top">
+
+<!-- ======================= AURORA BACKDROP ======================= -->
+<div class="aurora" aria-hidden="true">
+  <i class="aurora-blob aurora-blob--1"></i>
+  <i class="aurora-blob aurora-blob--2"></i>
+  <i class="aurora-blob aurora-blob--3"></i>
+</div>
+
+<!-- ======================= NAV ======================= -->
+<header class="nav" id="nav">
+  <div class="nav-inner glass">
+    <a class="nav-mark" href="#arcade-top">ARCADE<span>STUDIO</span></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#cc-start" data-spy="cc-start">Create</a>
+      <a href="#cc-workflow" data-spy="cc-workflow">Workflow</a>
+      <a href="#cc-models" data-spy="cc-models">Engine</a>
+      <a href="#cc-agents" data-spy="cc-agents">Agents</a>
+      <a href="#cc-voices" data-spy="cc-voices">Voices</a>
+      <a href="#cc-cast" data-spy="cc-cast">Avatars &amp; Items</a>
+      <a href="#cc-assets" data-spy="cc-assets">Assets</a>
+      <a href="#arcade-pricing" data-spy="arcade-pricing">Plans</a>
+    </nav>
+    <button class="btn btn--primary btn--small js-waitlist" type="button">Join the waitlist</button>
+    <button class="nav-burger" id="nav-burger" type="button" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="hero" id="cc-start">
+  <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="inner">
+    <div class="hero-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1">Arcade Studio / The creator calls the shots</div>
+      <h1 class="hero-title t-stagger-line t-stagger-line--2" id="creator-hero-title">Your world.<br><em>Starts here.</em></h1>
+      <p class="sub t-stagger-line t-stagger-line--3">From the first sketch to the final scene. Leading models. Specialist agents. Your direction.</p>
+    </div>
+
+    <!-- THE CONSOLE -->
+    <div class="console" id="creator-prompt" data-reveal="fade">
+      <div class="console-halo" aria-hidden="true"></div>
+      <div class="console-frame glass">
+        <div class="console-top">
+          <span class="console-dot" aria-hidden="true"></span>
+          <span class="mono console-brand">ARCADE ENGINE</span>
+          <div class="t-tabs t-tabs--mini" role="tablist" aria-label="Medium" data-tabs="medium">
+            <span class="t-tabs-pill" aria-hidden="true"></span>
+            <button class="t-tab" role="tab" aria-selected="true" data-medium="video" type="button">Video</button>
+            <button class="t-tab" role="tab" aria-selected="false" data-medium="image" type="button">Image</button>
+            <button class="t-tab" role="tab" aria-selected="false" data-medium="story" type="button">Story</button>
+          </div>
+        </div>
+        <div class="console-body">
+          <textarea class="console-input" id="console-input" rows="3" aria-label="Describe what you want to create" placeholder=""></textarea>
+          <span class="console-ghost mono" id="console-ghost" aria-hidden="true"></span>
+        </div>
+        <div class="console-models" role="group" aria-label="Choose your model" id="console-models">
+          <span class="mono console-models-label">Choose your model</span>
+          <div class="console-model-row" id="console-model-row"></div>
+        </div>
+        <div class="console-foot">
+          <div class="console-starts" aria-label="Start with">
+            <span class="mono">Start with</span>
+            <button class="chip" type="button" data-seed="An anime opening — a courier on a frozen platform, first light, hand-drawn energy.">An anime opening</button>
+            <button class="chip" type="button" data-seed="My script, on screen — act one of my draft, cast from my avatars, storyboard first.">My script, on screen</button>
+            <button class="chip" type="button" data-seed="A game world — a cathedral city under red pursuit lights, explorable, concept pass.">A game world</button>
+          </div>
+          <button class="btn btn--primary console-go" id="console-go" type="button">Start creating</button>
+        </div>
+      </div>
+      <p class="footnote mono" id="composer-note">Prepare your brief here. Join the waitlist for Studio access.</p>
+    </div>
+
+    <!-- HERO REEL -->
+    <figure class="hero-reel" data-reveal="fade">
+      <video class="hero-reel-video" src="assets/hd/hero-reel.mp4" poster="assets/hd/hero-reel.jpg" muted loop playsinline preload="metadata"></video>
+      <figcaption class="mono">Original Arcade reel · made with the Studio workflow</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= WORKFLOW / DR. ARCADE ======================= -->
+<section class="sec" id="cc-workflow">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1">Dr. Arcade / Original visual studies</div>
+      <h2 class="t-stagger-line t-stagger-line--2">Follow the workflow.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">One production, start to finish — its script, character look, frozen city, red pursuit vehicle, cathedral, and shot plan before review and an edited film excerpt. No generation runs here.</p>
+    </div>
+
+    <div class="film glass-deep" data-reveal="fade">
+      <video class="film-video" id="film-video" src="assets/hd/studio-film/desktop.mp4" poster="assets/hd/studio-film/desktop.jpg" muted loop playsinline preload="metadata"></video>
+      <div class="film-bar">
+        <button class="btn btn--ghost btn--small" id="film-toggle" type="button">Play walkthrough</button>
+        <div class="film-steps mono" aria-hidden="true">
+          <span class="is-on">ARCADE</span><i>→</i><span>SCRIPT</span><i>→</i><span>CAST</span><i>→</i><span>FILM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-stills" data-reveal="stagger">
+      <figure><img src="assets/hd/stills/dr-arcade-avatar.webp" alt="Dr. Arcade character study" loading="lazy"><figcaption class="mono">The character</figcaption></figure>
+      <figure><img src="assets/hd/stills/street-vehicle.webp" alt="Red pursuit vehicle" loading="lazy"><figcaption class="mono">The pursuit vehicle</figcaption></figure>
+      <figure><img src="assets/hd/stills/gold-architecture.webp" alt="Cathedral architecture" loading="lazy"><figcaption class="mono">The cathedral</figcaption></figure>
+      <figure><img src="assets/hd/stills/world-atmosphere.webp" alt="Frozen city atmosphere" loading="lazy"><figcaption class="mono">The frozen city</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CONNECTIONS ======================= -->
+<section class="sec sec--tight" id="cc-connections">
+  <div class="inner inner--narrow">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1" id="cc-connect-title">ChatGPT + Grok / From thinking to making</div>
+      <h2 class="t-stagger-line t-stagger-line--2">Keep the conversation.<br>Take it into production.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">Your script, your research, your ideas. Bring the brief into ARCADE and put a production team around it.</p>
+    </div>
+    <div class="connect-row" data-reveal="stagger">
+      <div class="connect-card glass">
+        <img src="assets/model-logos/openai.svg" alt="" class="connect-logo" loading="lazy">
+        <b>ChatGPT connection access</b>
+        <button class="btn btn--ghost btn--small js-waitlist" type="button">Request access</button>
+      </div>
+      <div class="connect-card glass">
+        <img src="assets/model-logos/grok.svg" alt="" class="connect-logo" loading="lazy">
+        <b>Grok connection access</b>
+        <button class="btn btn--ghost btn--small js-waitlist" type="button">Request access</button>
+      </div>
+    </div>
+    <p class="footnote mono">Direct account connections are not enabled in this preview. Join the Studio waitlist, or request connection access.</p>
+  </div>
+</section>
+
+<!-- ======================= IMAGE STUDIO ======================= -->
+<section class="sec" id="cc-images">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1" id="cc-stills-title">Image Studio</div>
+      <h2 class="t-stagger-line t-stagger-line--2">Make the whole campaign.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">Key art. Products. Characters. Environments.</p>
+    </div>
+    <div class="chips chips--filters" id="image-filters" data-reveal="fade">
+      <button class="chip is-on" type="button" data-cat="all">All work</button>
+      <button class="chip" type="button" data-cat="keyart">Key art</button>
+      <button class="chip" type="button" data-cat="products">Products</button>
+      <button class="chip" type="button" data-cat="characters">Characters</button>
+      <button class="chip" type="button" data-cat="worlds">Worlds</button>
+      <span class="mono chips-count" id="image-count">9 images · All work</span>
+    </div>
+    <div class="masonry" id="image-grid" data-reveal="fade">
+      <figure data-cat="characters"><img src="assets/hd/stills/character-angles.webp" alt="Character angle studies" loading="lazy"><figcaption class="mono">Character angles</figcaption></figure>
+      <figure data-cat="keyart"><img src="assets/hd/stills/character-arcade-muse.webp" alt="Arcade muse key art" loading="lazy"><figcaption class="mono">Arcade muse</figcaption></figure>
+      <figure data-cat="characters"><img src="assets/hd/stills/character-styling.webp" alt="Character styling" loading="lazy"><figcaption class="mono">Character styling</figcaption></figure>
+      <figure data-cat="products"><img src="assets/hd/stills/cinema-camera.webp" alt="Cinema camera product study" loading="lazy"><figcaption class="mono">Cinema camera</figcaption></figure>
+      <figure data-cat="keyart"><img src="assets/hd/stills/costume-red-ceremony.webp" alt="Red ceremony costume key art" loading="lazy"><figcaption class="mono">Red ceremony</figcaption></figure>
+      <figure data-cat="worlds"><img src="assets/hd/stills/gold-architecture.webp" alt="Gold architecture world" loading="lazy"><figcaption class="mono">Gold architecture</figcaption></figure>
+      <figure data-cat="worlds"><img src="assets/hd/stills/interior-study.webp" alt="Interior study" loading="lazy"><figcaption class="mono">Interior study</figcaption></figure>
+      <figure data-cat="products"><img src="assets/hd/stills/street-vehicle.webp" alt="Street vehicle product study" loading="lazy"><figcaption class="mono">Street vehicle</figcaption></figure>
+      <figure data-cat="worlds"><img src="assets/hd/stills/world-atmosphere.webp" alt="World atmosphere" loading="lazy"><figcaption class="mono">World atmosphere</figcaption></figure>
+    </div>
+    <div class="sec-actions" data-reveal="fade">
+      <button class="btn btn--primary js-waitlist" type="button">Start an image brief</button>
+      <span class="footnote mono">Selected ARCADE artwork. Examples illustrate creative applications, not output from a specific model.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= THE ENGINE / MODELS ======================= -->
+<section class="sec sec--dark" id="cc-models">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1" id="cc-model-title">The Engine / Many models. Your direction.</div>
+      <h2 class="t-stagger-line t-stagger-line--2">The tools orbit your vision.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">Move between image and video models inside one creative workflow. The model is part of the production — not the whole story.</p>
+    </div>
+    <div class="orbit-wrap" data-reveal="fade">
+      <div class="orbit" id="orbit">
+        <div class="orbit-core glass-dark">
+          <span class="mono">ARCADE</span>
+          <b>Your creative engine</b>
+        </div>
+        <canvas class="orbit-canvas" id="orbit-canvas" aria-hidden="true"></canvas>
+        <div class="orbit-ring" id="orbit-ring"></div>
+      </div>
+      <div class="model-detail glass-dark" id="model-detail" aria-live="polite">
+        <span class="model-kind mono" id="model-kind">VIDEO</span>
+        <b id="model-name">Seedance</b>
+        <p id="model-desc">Reference-led scenes and cinematic motion.</p>
+        <button class="btn btn--ghost-dark btn--small" id="model-add" type="button">Add Seedance to my brief</button>
+      </div>
+    </div>
+    <p class="footnote mono footnote--dark">Select a model · same studio. Model families shown for discovery — check the live Studio catalog for current availability, versions, and usage.</p>
+  </div>
+</section>
+
+<!-- ======================= FORMATS ======================= -->
+<section class="sec" id="cc-formats">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1">01 / No single medium</div>
+      <h2 class="t-stagger-line t-stagger-line--2">A world doesn't have to stay on paper.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">Keep the vision. Change the format.</p>
+    </div>
+    <div class="t-tabs t-tabs--line" role="tablist" aria-label="Formats" data-tabs="formats" data-reveal="fade">
+      <span class="t-tabs-pill" aria-hidden="true"></span>
+      <button class="t-tab" role="tab" id="format-0" aria-selected="true" data-format="anime" type="button">Anime &amp; manga</button>
+      <button class="t-tab" role="tab" id="format-1" aria-selected="false" data-format="live" type="button">Live action</button>
+      <button class="t-tab" role="tab" id="format-2" aria-selected="false" data-format="cinema" type="button">Cinema</button>
+      <button class="t-tab" role="tab" id="format-3" aria-selected="false" data-format="game" type="button">Game worlds</button>
+    </div>
+    <div class="format-panel glass-deep" id="format-panel" data-reveal="fade">
+      <video class="format-video" id="format-video" src="assets/hd/clip-05.mp4" poster="assets/hd/clip-05.jpg" muted loop playsinline preload="metadata"></video>
+      <div class="format-copy">
+        <b id="format-name">Anime &amp; manga</b>
+        <p id="format-desc">Character studies, graphic worlds, and stylized action. Develop a panel into a scene.</p>
+        <span class="mono format-note">Visual examples · not interactive gameplay</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FLOW / VIDEO-TO-VIDEO ======================= -->
+<section class="sec sec--tint" id="cc-flow">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1" id="cc-flow-title">Flow / Video-to-video</div>
+      <h2 class="t-stagger-line t-stagger-line--2">Keep the take. Rewrite the scene.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">One performance. More possibilities. Recast the lead, move the location, or replace a single detail. Your original motion sets the direction.</p>
+    </div>
+
+    <div class="flow-grid" data-reveal="stagger">
+      <div class="flow-source glass">
+        <span class="mono flow-tag">Source footage · unedited reference</span>
+        <video src="assets/hd/clip-04.mp4" poster="assets/hd/clip-04.jpg" muted loop playsinline preload="metadata" class="flow-video"></video>
+        <b>The movement is yours.</b>
+        <p>Bring filmed or generated footage. Decide what stays. Direct what changes.</p>
+      </div>
+      <div class="flow-direct glass">
+        <span class="mono flow-tag">Flow · edit direction</span>
+        <div class="flow-modes">
+          <button class="chip is-on" type="button" id="mod-cast">Recast</button>
+          <button class="chip" type="button" id="mod-world">Relocate</button>
+          <button class="chip" type="button" id="mod-object">Swap an element</button>
+        </div>
+        <b>Your character. Their performance.</b>
+        <p>Bring your own avatar into the take. Keep the gesture, timing, and camera direction as the foundation.</p>
+        <div class="flow-keep mono"><span class="keep-pill">KEEP</span> Location · camera · movement</div>
+        <div class="flow-brief" id="mod-brief-panel">
+          <span class="mono flow-tag" id="mod-edit-brief">Your edit brief</span>
+          <p class="flow-brief-text" id="edit-brief-text">Recast the person in my uploaded video as my attached character. Preserve the performance, gesture timing, camera movement, scene composition, and background. Change only the character and their wardrobe. Show me the edit plan and generation cost before proceeding.</p>
+          <div class="flow-brief-actions">
+            <button class="btn btn--ghost btn--small" id="copy-brief" type="button">Copy edit brief</button>
+            <button class="btn btn--primary btn--small js-waitlist" type="button">Join the waitlist</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ol class="flow-steps mono" data-reveal="stagger">
+      <li><span>01</span>Bring the original</li>
+      <li><span>02</span>Choose what changes</li>
+      <li><span>03</span>Direct the new version</li>
+    </ol>
+    <p class="footnote mono">Edit-direction preview — not a before-and-after result. Source footage stays unchanged here. Check supported edits and model availability in Studio before generating.</p>
+  </div>
+</section>
+
+<!-- ======================= COLLECTION ======================= -->
+<section class="sec sec--bleed" id="cc-collection">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1">The Dr. Arcade collection</div>
+      <h2 class="t-stagger-line t-stagger-line--2">Same imagination. Different directions.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">A moving collection of character, camera, and style studies.</p>
+    </div>
+  </div>
+  <div class="rail" id="study-rail" data-reveal="fade">
+    <figure class="study"><video src="assets/hd/samurai-film.mp4" poster="assets/hd/samurai-film.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 01 · Samurai</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-01.mp4" poster="assets/hd/clip-01.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 02 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-02.mp4" poster="assets/hd/clip-02.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 03 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-03.mp4" poster="assets/hd/clip-03.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 04 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-04.mp4" poster="assets/hd/clip-04.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 05 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-05.mp4" poster="assets/hd/clip-05.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 06 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-06.mp4" poster="assets/hd/clip-06.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 07 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-07.mp4" poster="assets/hd/clip-07.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 08 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-08.mp4" poster="assets/hd/clip-08.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 09 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-10.mp4" poster="assets/hd/clip-10.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 10 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-11.mp4" poster="assets/hd/clip-11.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 11 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-12.mp4" poster="assets/hd/clip-12.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 12 · Dr. Arcade</figcaption></figure>
+    <figure class="study"><video src="assets/hd/clip-13.mp4" poster="assets/hd/clip-13.jpg" muted loop playsinline preload="none"></video><figcaption class="mono">Study 13 · Dr. Arcade</figcaption></figure>
+  </div>
+  <p class="footnote mono inner">Scroll sideways to explore all 13 studies ↔</p>
+</section>
+
+<!-- ======================= START WHERE YOU ARE ======================= -->
+<section class="sec" id="cc-paths">
+  <div class="inner inner--narrow">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1">02 / Start where you are</div>
+      <h2 class="t-stagger-line t-stagger-line--2">You don't need a studio.<br>You need a starting point.</h2>
+    </div>
+    <div class="t-tabs t-tabs--line" role="tablist" aria-label="Starting point" data-tabs="paths" data-reveal="fade">
+      <span class="t-tabs-pill" aria-hidden="true"></span>
+      <button class="t-tab" role="tab" id="path-0" aria-selected="true" data-path="drawing" type="button">A drawing</button>
+      <button class="t-tab" role="tab" id="path-1" aria-selected="false" data-path="script" type="button">A script</button>
+      <button class="t-tab" role="tab" id="path-2" aria-selected="false" data-path="reference" type="button">A reference</button>
+    </div>
+    <div class="path-panel glass" id="starting-panel" data-reveal="fade">
+      <div class="path-copy">
+        <b id="path-name">The sketch is a starting point. Not a limit.</b>
+        <p id="path-desc">Bring a character drawing or visual reference. Develop its look, explore a world around it, then direct it in motion.</p>
+        <div class="path-line mono">Your input <i>→</i> Agent direction <i>→</i> Creative output</div>
+        <button class="btn btn--primary btn--small js-waitlist" type="button">Get early access</button>
+      </div>
+      <img class="path-img" id="path-img" src="assets/hd/stills/character-angles.webp" alt="Starting point example" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ======================= AGENTS ======================= -->
+<section class="sec sec--dark" id="cc-agents">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1">Agents / Your production team</div>
+      <h2 class="t-stagger-line t-stagger-line--2">Independent creator.<br>Not a one-person crew.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">Give the job to your crew. Develop the direction with a director, writer, casting director, DP, and production designer.</p>
+    </div>
+    <div class="agents" data-reveal="fade">
+      <div class="agent-list" role="tablist" aria-label="Agents">
+        <button class="agent-tab" role="tab" id="agent-0" aria-selected="true" data-agent="0" type="button"><span class="mono">0 1</span>Director</button>
+        <button class="agent-tab" role="tab" id="agent-1" aria-selected="false" data-agent="1" type="button"><span class="mono">0 2</span>Casting director</button>
+        <button class="agent-tab" role="tab" id="agent-2" aria-selected="false" data-agent="2" type="button"><span class="mono">0 3</span>Script agent</button>
+        <button class="agent-tab" role="tab" id="agent-3" aria-selected="false" data-agent="3" type="button"><span class="mono">0 4</span>DP</button>
+        <button class="agent-tab" role="tab" id="agent-4" aria-selected="false" data-agent="4" type="button"><span class="mono">0 5</span>Production designer</button>
+      </div>
+      <div class="agent-panel glass-dark" id="agent-panel" aria-live="polite">
+        <span class="mono" id="agent-role">Vera Kline · Director</span>
+        <b class="agent-line" id="agent-line">Protect the vision.</b>
+        <p id="agent-desc">Find the tone, build the visual language, and give every scene a reason to exist.</p>
+        <span class="mono agent-io" id="agent-io">Creative direction → scene brief</span>
+        <button class="btn btn--ghost-dark btn--small js-waitlist" type="button">Join the Studio waitlist</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= VOICES ======================= -->
+<section class="sec" id="cc-voices">
+  <div class="inner inner--narrow">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1" id="cc-voices-title">Voices / Cast the sound</div>
+      <h2 class="t-stagger-line t-stagger-line--2">A face is only half the character.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">Find a voice for your cast, dialogue, and narration. Start with the words. Shape the delivery around the story.</p>
+    </div>
+    <div class="voice glass" data-reveal="fade">
+      <img class="voice-avatar" src="assets/hd/stills/dr-arcade-avatar.webp" alt="Dr. Arcade" loading="lazy">
+      <div class="voice-main">
+        <span class="mono">Featured character voice · Original performance · English</span>
+        <b>Dr. Arcade</b>
+        <p>Hear the character, not just the idea. Play Dr. Arcade's original film audio, then find the voice for your own cast.</p>
+        <div class="voice-player">
+          <button class="voice-play" id="voice-play" type="button" aria-label="Play voice"><i></i></button>
+          <div class="voice-ticks" id="voice-ticks" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="23" aria-valuenow="0" tabindex="0"></div>
+          <span class="mono voice-time" id="voice-time">0:00 / 0:23</span>
+        </div>
+        <span class="footnote mono">Tap to listen. Sound is off until you play. Original film soundtrack, including music and effects.</span>
+      </div>
+      <audio id="voice-audio" src="assets/audio/dr-arcade-original.m4a" preload="metadata"></audio>
+    </div>
+    <div class="sec-actions" data-reveal="fade">
+      <button class="btn btn--primary js-waitlist" type="button">Get early access to Voices</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= AVATARS & ITEMS ======================= -->
+<section class="sec sec--tint" id="cc-cast">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1" id="cc-cast-title">Avatars &amp; Items / Cast meets kit</div>
+      <h2 class="t-stagger-line t-stagger-line--2">Know who's in the scene.<br>And what belongs in it.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">Develop the avatar. Define the wardrobe, vehicle, and objects around them. A cast and a world kit, not a folder of unrelated ideas.</p>
+    </div>
+    <div class="cast-grid" data-reveal="stagger">
+      <div class="cast-card glass">
+        <img src="assets/hd/stills/character-styling.webp" alt="Avatar example" loading="lazy">
+        <div class="cast-copy">
+          <span class="mono">01 / The cast</span>
+          <b>Avatars</b>
+          <p>Give your character a face, silhouette, and visual identity to direct the work around.</p>
+          <button class="btn btn--ghost btn--small js-waitlist" type="button">Get early access</button>
+        </div>
+      </div>
+      <div class="cast-card glass">
+        <img src="assets/hd/stills/street-vehicle.webp" alt="Item example" loading="lazy">
+        <div class="cast-copy">
+          <span class="mono">02 / The kit</span>
+          <b>Items</b>
+          <p>The jacket, the getaway car, the object the story turns on. Build the pieces that make the world yours.</p>
+          <button class="btn btn--ghost btn--small js-waitlist" type="button">Get early access</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ASSETS ======================= -->
+<section class="sec" id="cc-assets">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1" id="cc-assets-title">Assets / Keep the whole picture</div>
+      <h2 class="t-stagger-line t-stagger-line--2">Less searching. More making.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">Keep the references and creations behind your work within reach. Bring your material into Assets, then develop the next shot with your team.</p>
+    </div>
+    <div class="assets glass-deep" data-reveal="fade">
+      <div class="assets-head">
+        <span class="mono">Your working library</span>
+        <div class="t-tabs t-tabs--mini" role="tablist" aria-label="Library" data-tabs="assets">
+          <span class="t-tabs-pill" aria-hidden="true"></span>
+          <button class="t-tab" role="tab" aria-selected="true" data-lib="refs" type="button">References</button>
+          <button class="t-tab" role="tab" aria-selected="false" data-lib="creations" type="button">Creations</button>
+        </div>
+      </div>
+      <div class="assets-grid" id="assets-refs">
+        <figure><img src="assets/hd/stills/character-styling.webp" alt="Character reference" loading="lazy"><figcaption class="mono">Character reference<br><b>Neon character &amp; costume</b></figcaption></figure>
+        <figure><img src="assets/hd/stills/interior-study.webp" alt="Environment reference" loading="lazy"><figcaption class="mono">Environment reference<br><b>A sense of place</b></figcaption></figure>
+        <figure><img src="assets/hd/stills/world-atmosphere.webp" alt="Scene reference" loading="lazy"><figcaption class="mono">Scene reference<br><b>Light &amp; atmosphere</b></figcaption></figure>
+      </div>
+      <div class="assets-grid" id="assets-creations" hidden>
+        <figure><img src="assets/stills/last-prescription.png" alt="Creation still" loading="lazy"><figcaption class="mono">Creation<br><b>The last prescription</b></figcaption></figure>
+        <figure><img src="assets/hellrazor.webp" alt="Creation still" loading="lazy"><figcaption class="mono">Creation<br><b>Hellrazor</b></figcaption></figure>
+        <figure><img src="assets/hd/stills/costume-red-ceremony.webp" alt="Creation still" loading="lazy"><figcaption class="mono">Creation<br><b>Red ceremony</b></figcaption></figure>
+      </div>
+      <p class="footnote mono">The faces, materials, and places behind the brief. Arcade collection · example assets.</p>
+    </div>
+    <div class="sec-actions" data-reveal="fade">
+      <button class="btn btn--primary js-waitlist" type="button">Join the waitlist</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PRICING ======================= -->
+<section class="sec sec--tint" id="arcade-pricing">
+  <div class="inner">
+    <div class="sec-head t-stagger" data-reveal>
+      <div class="eyebrow mono t-stagger-line t-stagger-line--1">06 / More room to make</div>
+      <h2 class="t-stagger-line t-stagger-line--2" id="ac-pricing-title">Art takes attempts.<br>Your plan should leave room for them.</h2>
+      <p class="sub t-stagger-line t-stagger-line--3">Start at $29 a month. Choose a plan around your practice, not a stack of separate subscriptions. Clear pricing, with annual savings when you're ready to commit.</p>
+    </div>
+
+    <div class="bill-toggle" data-reveal="fade">
+      <span class="mono">Your next obsession starts here</span>
+      <div class="t-tabs t-tabs--mini" role="tablist" aria-label="Billing" data-tabs="billing">
+        <span class="t-tabs-pill" aria-hidden="true"></span>
+        <button class="t-tab" role="tab" aria-selected="true" data-billing="monthly" type="button">Monthly</button>
+        <button class="t-tab" role="tab" aria-selected="false" data-billing="annual" type="button">Annual <em class="save">−20%</em></button>
+      </div>
+    </div>
+
+    <div class="plans" data-reveal="stagger">
+      <div class="plan glass" id="ac-plan-creator">
+        <span class="mono plan-tag">Make your first mark</span>
+        <b class="plan-name">Creator</b>
+        <span class="plan-aud">Independent creators &amp; new world builders</span>
+        <div class="plan-price"><span class="cur">$</span><span class="t-digit-group amount" data-monthly="29" data-annual="23"></span><span class="per mono">/ month</span></div>
+        <span class="plan-bill mono" data-m="$29 billed monthly" data-a="Billed annually · save 20%">$29 billed monthly</span>
+        <button class="btn btn--primary js-waitlist" type="button">Choose Creator</button>
+        <b class="plan-hook">Turn the idea into something real.</b>
+        <p class="plan-desc">For exploring a game concept, finding your visual identity, and making your first release.</p>
+        <span class="mono plan-h">A fit for your next</span>
+        <ul>
+          <li>Game concepts &amp; prototype direction</li>
+          <li>Character looks &amp; world moodboards</li>
+          <li>Short films, stills &amp; social releases</li>
+        </ul>
+        <span class="mono plan-h">Imagine the project</span>
+        <p class="plan-imagine">Your first world, from character studies to a cinematic introduction.</p>
+      </div>
+
+      <div class="plan glass plan--featured" id="ac-plan-pro">
+        <span class="mono plan-tag">Build with intention</span>
+        <b class="plan-name">Pro</b>
+        <span class="plan-aud">Active creators &amp; growing original IPs</span>
+        <div class="plan-price"><span class="cur">$</span><span class="t-digit-group amount" data-monthly="99" data-annual="79"></span><span class="per mono">/ month</span></div>
+        <span class="plan-bill mono" data-m="$99 billed monthly" data-a="Billed annually · save 20%">$99 billed monthly</span>
+        <button class="btn btn--primary js-waitlist" type="button">Choose Pro</button>
+        <b class="plan-hook">Give your universe momentum.</b>
+        <p class="plan-desc">For creators developing a recognizable world through ongoing games, films, and content.</p>
+        <span class="mono plan-h">A fit for your next</span>
+        <ul>
+          <li>Game worlds &amp; recurring characters</li>
+          <li>Episodic films &amp; launch campaigns</li>
+          <li>Reference-led creative workflows</li>
+        </ul>
+        <span class="mono plan-h">Imagine the project</span>
+        <p class="plan-imagine">A developing game universe with a cast, cinematic scenes, and a visual campaign.</p>
+      </div>
+
+      <div class="plan glass" id="ac-plan-studio">
+        <span class="mono plan-tag">Think in entire universes</span>
+        <b class="plan-name">Studio</b>
+        <span class="plan-aud">Professional creators &amp; ambitious productions</span>
+        <div class="plan-price"><span class="cur">$</span><span class="t-digit-group amount" data-monthly="300" data-annual="240"></span><span class="per mono">/ month</span></div>
+        <span class="plan-bill mono" data-m="$300 billed monthly" data-a="Billed annually · save 20%">$300 billed monthly</span>
+        <button class="btn btn--primary js-waitlist" type="button">Choose Studio</button>
+        <b class="plan-hook">Make the bigger vision happen.</b>
+        <p class="plan-desc">For a creative practice spanning multiple projects, formats, and original universes.</p>
+        <span class="mono plan-h">A fit for your next</span>
+        <ul>
+          <li>Multi-project creative development</li>
+          <li>Game, film &amp; campaign direction</li>
+          <li>Repeatable production workflows</li>
+        </ul>
+        <span class="mono plan-h">Imagine the project</span>
+        <p class="plan-imagine">An original IP developed across a game, a film series, and its supporting media.</p>
+      </div>
+    </div>
+    <p class="footnote mono">Prices in USD. Generation usage varies by model, resolution, and duration. Review your plan's allowance and final billing terms in Studio before subscribing.</p>
+
+    <div class="toolkit" data-reveal="stagger">
+      <span class="mono toolkit-h">Your ideas, across media — a serious creative toolkit. One place to build.</span>
+      <div class="toolkit-row">
+        <span class="chip"><img src="assets/model-logos/seed-bytedance-official.svg" alt="">Seedance · Cinematic motion</span>
+        <span class="chip"><img src="assets/model-logos/nano-banana-official.svg" alt="">Nano Banana · Visual exploration</span>
+        <span class="chip"><img src="assets/model-logos/openai.svg" alt="">GPT Image · Images &amp; key art</span>
+        <span class="chip chip--soon">Game creation · Coming soon</span>
+      </div>
+    </div>
+
+    <div class="faq" data-reveal="fade">
+      <details>
+        <summary>How should I compare creative subscriptions?<i></i></summary>
+        <p>Compare what you can make, not just a credit number. Video length, resolution, model version, and generation mode all affect usage. A still, a five-second clip, and a game-building session are different workloads. Check the allowance for your actual workflow before choosing a plan.</p>
+      </details>
+      <details>
+        <summary>Before you start — do I need to know how to use AI tools?<i></i></summary>
+        <p>Start with an idea, drawing, script, or reference. The agent-led approach is designed to help you develop the direction step by step. You stay in control of the creative decisions.</p>
+      </details>
+      <details>
+        <summary>Can I build a game here?<i></i></summary>
+        <p>You can develop the visual direction for characters, environments, vehicles, and cinematics now. The planned Blender-to-game workflow, Unity and Unreal connections, and our own Arcade Engine are coming soon. Playable game generation and exports are not available yet.</p>
+      </details>
+      <details>
+        <summary>Are all models included in every plan?<i></i></summary>
+        <p>Check the live studio for the current model catalog, credit allowances, and plan limits before purchasing. This page does not promise unlimited generation or universal model access.</p>
+      </details>
+      <details>
+        <summary>Can I move between styles and formats?<i></i></summary>
+        <p>Use your starting material to explore different visual directions, from anime-inspired character work to cinematic images and motion. Results depend on the selected model and your references.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FINAL CTA ======================= -->
+<section class="sec sec--final" id="cc-final">
+  <canvas class="final-canvas" id="final-canvas" aria-hidden="true"></canvas>
+  <div class="inner">
+    <div class="t-stagger" data-reveal>
+      <h2 class="final-title t-stagger-line t-stagger-line--1">The story is yours.<br><em>Make it visible.</em></h2>
+      <div class="t-stagger-line t-stagger-line--2 sec-actions sec-actions--center">
+        <button class="btn btn--primary btn--big js-waitlist" type="button">Join the waitlist</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="inner foot-inner">
+    <span class="nav-mark">ARCADE<span>STUDIO / CREATOR EDITION</span></span>
+    <div class="foot-right">
+      <button class="linkbtn mono" id="motion-toggle" type="button" aria-pressed="false">Pause motion</button>
+      <a class="linkbtn mono" href="#arcade-top">Back to top ↑</a>
+    </div>
+  </div>
+  <div class="inner foot-note mono">Preview build · Studio Subtract · 09.2026</div>
+</footer>
+
+</div><!-- /site -->
+
+<div class="toast mono" id="toast" role="status"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
